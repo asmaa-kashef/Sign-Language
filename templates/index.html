@@ -1804,6 +1804,18 @@ body>#login #dont_have_an_account a:hover { border-bottom: 2px solid #f90 }
   <div id="login">
   <form id="login_form">
     <div class="field_container">
+	 <div class="container">
+            <div class="row" style="width:800px; margin:0 auto;">
+                <div class="col-lg-8  offset-lg-2">
+                    <h2 class="mt-5">{{ "Sign Language Recognition App" }}</h2>
+                    <img src="{{ url_for('video') }}" width="50%"/>
+                    <form method="post" action="/">
+                        <input type="submit" value="Start/Stop Recording" name="rec" />
+                    </form>
+                    <h3 style="font-family:courier;">Instructions:</h3>
+                    <ol style="font-family:courier;">
+                    <li>Start/Stop Recording--Toggle between starting and stopping video recording</li>	
+                </div>
       
     </div>
 
