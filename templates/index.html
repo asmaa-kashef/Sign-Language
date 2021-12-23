@@ -7,12 +7,16 @@
         <title>Face Detection</title>
         <style>
          #container {
-             margin: 0px auto;
+         
+              margin: 0 auto; 
+               width: 500px;
+             height: 300px;
              border: 10px #333 solid;
          }
          #videoElement {
-             width: 640px;
-             height: 480px;
+            
+             width: 500px;
+             height: 300px;
              display: none;
              background-color: #666;
          }
@@ -24,8 +28,9 @@
          }
 
          #canvasElement {
-             width: 640px;
-             height: 480px;
+         
+             width: 500px;
+             height: 300px;
              border: 1px solid black;
          }
          #photo {
@@ -37,12 +42,12 @@
         </style>
     </head>
     <body>
-        <div id="container">
-            <div>
+        <div style=" margin-top: 100px;" id="container">
+            <div >
             <video autoplay="true" id="videoElement"></video>
                 <canvas id="canvasElement"></canvas>
 
-                <img id="photo">
+                
             </div>
         </div>
 
