@@ -24,7 +24,6 @@ gevent==1.2.2
 gevent-websocket==0.10.1
 greenlet==0.4.12
 dlib>=19.3.0
-MarkupSafe==1.0
 olefile==0.44
 Pillow==4.2.1
 python-engineio==1.7.0
