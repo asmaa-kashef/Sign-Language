@@ -15,7 +15,7 @@ platformdirs==2.4.0
 six==1.16.0
 virtualenv==20.10.0
 Werkzeug==2.0.2
-cmake==3.2.3
+cmake==3.22.1
 enum-compat==0.0.2
 enum34==1.1.6
 eventlet==0.20.0
