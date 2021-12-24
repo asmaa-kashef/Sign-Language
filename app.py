@@ -1,12 +1,13 @@
 from sys import stdout
 from makeup_artist import Makeup_artist
 import logging
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response,jsonify, request
 from flask_socketio import SocketIO, emit
 from camera import Camera
 from utils import base64_to_pil_image, pil_image_to_base64
-
-
+from camera2 import VideoCamera
+video_camera = None
+global_frame = None
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
@@ -37,16 +38,43 @@ def index():
     """Video streaming home page."""
     return render_template('index.html')
 
+@app.route('/record_status', methods=['POST'])
+def record_status():
+    global video_camera 
+    if video_camera == None:
+        video_camera = VideoCamera()
+
+    json = request.get_json()
+
+    status = json['status']
+
+    if status == "true":
+        video_camera.start_record()
+        return jsonify(result="started")
+    else:
+        video_camera.stop_record()
+        return jsonify(result="stopped")
 
 def gen():
     """Video streaming generator function."""
 
     app.logger.info("starting to generate frames!")
-    while True:
-        frame = camera.get_frame() #pil_image_to_base64(camera.get_frame())
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    global video_camera 
+    global global_frame
 
+    if video_camera == None:
+        video_camera = VideoCamera()
+        
+    while True:
+        frame = video_camera.get_frame()
+
+        if frame != None:
+            global_frame = frame
+            yield (b'--frame\r\n'
+                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+        else:
+            yield (b'--frame\r\n'
+                            b'Content-Type: image/jpeg\r\n\r\n' + global_frame + b'\r\n\r\n')
 
 @app.route('/video_feed')
 def video_feed():
